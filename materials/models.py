@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Course(models.Model):
+    objects = None
     name = models.CharField(
         max_length=100,
         verbose_name="Название курса",
@@ -27,6 +28,7 @@ class Course(models.Model):
 
 
 class Lesson(models.Model):
+    objects = None
     name = models.CharField(
         max_length=100,
         verbose_name="Название урока",
@@ -46,7 +48,12 @@ class Lesson(models.Model):
         null=True,
     )
     course = models.ForeignKey(
-        Course, verbose_name="Курс", on_delete=models.CASCADE, related_name="category"
+        "Course",
+        verbose_name="Курс",
+        on_delete=models.CASCADE,
+        related_name="lessons",
+        blank=True,
+        null=True,
     )
     video_link = models.URLField(
         verbose_name="Ссылка на видео",
