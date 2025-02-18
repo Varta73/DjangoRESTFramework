@@ -8,34 +8,39 @@ from rest_framework.generics import (
 )
 
 from materials.models import Lesson, Course
-from materials.serializers import LessonSerializer, CourseSerializer
+from materials.serializers import LessonSerializer, CourseSerializer, CourseDetailSerializer
 
 
-class LessonViewSet(ModelViewSet):
+class CourseViewSet(ModelViewSet):
+    queryset = Course.objects.all()
+    # serializer_class = LessonSerializer
+
+    def get_serializer_class(self):
+        if self.action == "retrieve":
+            return CourseDetailSerializer
+        return CourseSerializer
+
+
+class LessonCreateAPIView(CreateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
 
 
-class CourseCreateAPIView(CreateAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+class LessonListAPIView(ListAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
 
 
-class CourseListAPIView(ListAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+class LessonRetrieveAPIView(RetrieveAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
 
 
-class CourseRetrieveAPIView(RetrieveAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+class LessonUpdateAPIView(UpdateAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
 
 
-class CourseUpdateAPIView(UpdateAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
-
-
-class CourseDestroyAPIView(DestroyAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+class LessonDestroyAPIView(DestroyAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer

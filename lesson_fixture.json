@@ -1,0 +1,90 @@
+[
+{
+    "model": "materials.lesson",
+    "pk": 3,
+    "fields": {
+        "name": "Физика",
+        "description": null,
+        "image": "",
+        "course": 1,
+        "video_link": null
+    }
+},
+{
+    "model": "materials.lesson",
+    "pk": 4,
+    "fields": {
+        "name": "Математика",
+        "description": null,
+        "image": "",
+        "course": 2,
+        "video_link": null
+    }
+},
+{
+    "model": "materials.lesson",
+    "pk": 5,
+    "fields": {
+        "name": "новый",
+        "description": "описание",
+        "image": "",
+        "course": null,
+        "video_link": null
+    }
+},
+{
+    "model": "materials.lesson",
+    "pk": 6,
+    "fields": {
+        "name": "второй",
+        "description": "очень",
+        "image": "",
+        "course": 1,
+        "video_link": null
+    }
+},
+{
+    "model": "materials.lesson",
+    "pk": 7,
+    "fields": {
+        "name": "третий",
+        "description": "очень",
+        "image": "",
+        "course": 2,
+        "video_link": null
+    }
+},
+{
+    "model": "materials.lesson",
+    "pk": 8,
+    "fields": {
+        "name": "четвертый",
+        "description": "очень",
+        "image": "",
+        "course": 2,
+        "video_link": null
+    }
+},
+{
+    "model": "materials.lesson",
+    "pk": 9,
+    "fields": {
+        "name": "1",
+        "description": "очень",
+        "image": "",
+        "course": 1,
+        "video_link": null
+    }
+},
+{
+    "model": "materials.lesson",
+    "pk": 10,
+    "fields": {
+        "name": "3",
+        "description": "милый",
+        "image": "",
+        "course": null,
+        "video_link": null
+    }
+}
+]
