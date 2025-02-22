@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 from django_countries.fields import CountryField
 
 from materials.models import Course, Lesson
@@ -7,7 +7,7 @@ from materials.models import Course, Lesson
 
 class User(AbstractUser):
     # Пользователь
-    username = models.CharField(max_length=50, blank=True, null=True)
+    username = None
     email = models.EmailField(
         unique=True, verbose_name="Email", help_text="Укажите Вашу почту"
     )
@@ -25,7 +25,7 @@ class User(AbstractUser):
         null=True,
         help_text="Введите номер телефона",
     )
-    country = CountryField(max_length=100, verbose_name="Страна")
+    city = models.CharField(max_length=50, verbose_name="Город", blank=True, null=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
