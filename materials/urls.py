@@ -8,7 +8,8 @@ from materials.views import (
     LessonDestroyAPIView,
     LessonListAPIView,
     LessonRetrieveAPIView,
-    LessonUpdateAPIView, SubscriptionApiView,
+    LessonUpdateAPIView,
+    SubscriptionApiView,
 )
 
 app_name = MaterialsConfig.name

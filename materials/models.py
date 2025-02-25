@@ -92,10 +92,7 @@ class Subscription(models.Model):
         blank=True,
         null=True,
     )
-    course = models.ForeignKey(
-        Course,
-        on_delete=models.CASCADE,
-        verbose_name="Курс")
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="Курс")
 
     class Meta:
         verbose_name = "Подписка"
