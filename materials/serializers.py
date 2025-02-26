@@ -6,6 +6,13 @@ from materials.validators import validate_link
 
 
 class CourseSerializer(ModelSerializer):
+    subscription = SerializerMethodField()
+
+    def get_subscription(self, obj):
+        if Subscription.objects.filter(course=obj):
+            return "Вы подписаны на курс"
+        return "Вы не подписаны на курс"
+
     class Meta:
         model = Course
         fields = "__all__"
