@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -20,6 +21,13 @@ class Course(models.Model):
         help_text="Загрузите фото курса",
         blank=True,
         null=True,
+    )
+    owner = models.ForeignKey(
+        "users.User",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Владелец",
     )
 
     class Meta:
@@ -48,7 +56,7 @@ class Lesson(models.Model):
         null=True,
     )
     course = models.ForeignKey(
-        "Course",
+        Course,
         verbose_name="Курс",
         on_delete=models.CASCADE,
         related_name="lessons",
@@ -61,7 +69,34 @@ class Lesson(models.Model):
         blank=True,
         null=True,
     )
+    owner = models.ForeignKey(
+        "users.User",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Владелец",
+    )
 
     class Meta:
         verbose_name = "Урок"
         verbose_name_plural = "Уроки"
+
+
+class Subscription(models.Model):
+    """Модель подписки на обновления курса для пользователя."""
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name="Владелец",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+    )
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="Курс")
+
+    class Meta:
+        verbose_name = "Подписка"
+        verbose_name_plural = "Подписки"
+
+    def __str__(self):
+        return f"{self.user} подписан на {self.course}"

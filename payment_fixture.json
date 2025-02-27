@@ -1,0 +1,26 @@
+[
+{
+    "model": "users.payment",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "date_of_payment": null,
+        "paid_course": 1,
+        "paid_lesson": 3,
+        "amount": 200,
+        "form_of_payment": "перевод на счет"
+    }
+},
+{
+    "model": "users.payment",
+    "pk": 2,
+    "fields": {
+        "user": 1,
+        "date_of_payment": null,
+        "paid_course": 2,
+        "paid_lesson": 8,
+        "amount": 300,
+        "form_of_payment": "наличные"
+    }
+}
+]

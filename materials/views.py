@@ -1,41 +1,112 @@
-from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import (
-    ListAPIView,
     CreateAPIView,
+    DestroyAPIView,
+    ListAPIView,
     RetrieveAPIView,
     UpdateAPIView,
-    DestroyAPIView,
+    get_object_or_404,
 )
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 
-from materials.models import Lesson, Course
-from materials.serializers import LessonSerializer, CourseSerializer
+from materials.models import Course, Lesson, Subscription
+from materials.pagination import CustomPagination
+from materials.serializers import (
+    CourseDetailSerializer,
+    CourseSerializer,
+    LessonSerializer,
+    SubscriptionSerializer,
+)
+from users.permissions import IsModer, IsOwner
 
 
-class LessonViewSet(ModelViewSet):
+class CourseViewSet(ModelViewSet):
+    queryset = Course.objects.all()
+    pagination_class = CustomPagination
+    # serializer_class = LessonSerializer
+
+    def get_serializer_class(self):
+        if self.action == "retrieve":
+            return CourseDetailSerializer
+        return CourseSerializer
+
+    def perform_create(self, serializer):
+        course = serializer.save()
+        course.owner = self.request.user
+        course.save()
+
+    def get_permissions(self):
+        """Доступ"""
+        # Создание - кроме модератора
+        if self.action == "create":
+            self.permission_classes = (~IsModer,)
+        # Обновление или просмотр - модератор или владелец
+        elif self.action in ["update", "retrieve"]:
+            self.permission_classes = (IsModer | IsOwner,)
+        # Удаление - для владельца, кроме модератора
+        elif self.action == "destroy":
+            self.permission_classes = (~IsModer | IsOwner,)
+        return super().get_permissions()
+
+
+class LessonCreateAPIView(CreateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
+    permission_classes = (~IsModer | IsAuthenticated,)
+
+    def perform_create(self, serializer):
+        lesson = serializer.save()
+        lesson.owner = self.request.user
+        lesson.save()
 
 
-class CourseCreateAPIView(CreateAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+class LessonListAPIView(ListAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
+    permission_classes = (IsAuthenticated, IsModer | IsOwner)
+    pagination_class = CustomPagination
 
 
-class CourseListAPIView(ListAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+class LessonRetrieveAPIView(RetrieveAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
+    permission_classes = (
+        IsAuthenticated,
+        IsModer | IsOwner,
+    )
 
 
-class CourseRetrieveAPIView(RetrieveAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+class LessonUpdateAPIView(UpdateAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
+    permission_classes = (IsAuthenticated, IsModer | IsOwner)
 
 
-class CourseUpdateAPIView(UpdateAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+class LessonDestroyAPIView(DestroyAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
+    permission_classes = (IsAuthenticated, IsOwner | ~IsModer)
 
 
-class CourseDestroyAPIView(DestroyAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+class SubscriptionApiView(APIView):
+    queryset = Subscription.objects.all()
+    serializer_class = SubscriptionSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        user = self.request.user
+        course_id = self.request.data.get("course")
+        course_item = get_object_or_404(Course, id=course_id)
+
+        subs_item = self.queryset.filter(user=user, course=course_item)
+
+        if subs_item.exists():
+            subs_item.delete()
+            message = "Подписка удалена"
+        else:
+            Subscription.objects.create(user=user, course=course_item)
+            message = "Подписка добавлена"
+
+        return Response({"message": message})
