@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "users",
     "materials",
     "django_countries",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
