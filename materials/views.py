@@ -20,6 +20,7 @@ from materials.serializers import (
     SubscriptionSerializer,
 )
 from users.permissions import IsModer, IsOwner
+from materials.tasks import send_information_about_update
 
 
 class CourseViewSet(ModelViewSet):
@@ -108,5 +109,6 @@ class SubscriptionApiView(APIView):
         else:
             Subscription.objects.create(user=user, course=course_item)
             message = "Подписка добавлена"
+            send_information_about_update.delay(user.email)
 
         return Response({"message": message})

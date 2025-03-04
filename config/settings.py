@@ -130,10 +130,10 @@ STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")
 # Настройки для Celery
 
 # URL-адрес брокера сообщений
-CELERY_BROKER_URL = 'redis://localhost:6379' # Например, Redis, который по умолчанию работает на порту 6379
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
 
 # URL-адрес брокера результатов, также Redis
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
 
 # Часовой пояс для работы Celery
 CELERY_TIMEZONE = TIME_ZONE
@@ -143,3 +143,20 @@ CELERY_TASK_TRACK_STARTED = True
 
 # Максимальное время на выполнение задачи
 CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CELERY_BEAT_SCHEDULE = {
+    'user_block': {
+        'task': 'users.tasks.user_block',
+        'schedule': timedelta(days=1),
+    },
+}
+
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
