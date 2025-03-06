@@ -145,9 +145,9 @@ CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BEAT_SCHEDULE = {
-    'user_block': {
-        'task': 'users.tasks.user_block',
-        'schedule': timedelta(days=1),
+    "user_block": {
+        "task": "users.tasks.user_block",
+        "schedule": timedelta(days=1),
     },
 }
 

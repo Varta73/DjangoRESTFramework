@@ -51,6 +51,14 @@ class CourseViewSet(ModelViewSet):
             self.permission_classes = (~IsModer | IsOwner,)
         return super().get_permissions()
 
+    def perform_update(self, serializer):
+        course = serializer.save()
+        for subscription in Subscription.objects.filter(course=course.pk):
+            email = subscription.user.email
+            message = f'Данные по курсу "{subscription.course.title}" обновились'
+            send_information_about_update.delay(email, message)
+        course.save()
+
 
 class LessonCreateAPIView(CreateAPIView):
     queryset = Lesson.objects.all()
@@ -109,6 +117,5 @@ class SubscriptionApiView(APIView):
         else:
             Subscription.objects.create(user=user, course=course_item)
             message = "Подписка добавлена"
-            send_information_about_update.delay(user.email)
 
         return Response({"message": message})
