@@ -13,7 +13,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 INSTALLED_APPS = [
@@ -111,7 +111,7 @@ USE_TZ = True
 
 
 STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR,  "staticfiles")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 
 MEDIA_URL = "/media/"
