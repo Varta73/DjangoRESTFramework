@@ -35,6 +35,22 @@ https://github.com/Varta73/DjangoProject/tree/feature/homework_34
 docker-compose up -d --build
 ```
 
+## Запуск проекта:
+1. Клонируйте репозиторий и перейдите в папку проекта:
+```
+git clone https://github.com/Varta73/DjangoRESTFramework
+cd DjangoRESTFramework:
+```
+2. Создайте и заполните файл .env 
+3. Запустите контейнеры: 
+```
+docker-compose up -d --build
+```
+4. Остановка контейнеров 
+```
+docker-compose down
+```
+
 ## Проект содержит:
 
 1. Вьюсеты и дженерики:
