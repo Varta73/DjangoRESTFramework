@@ -1,5 +1,4 @@
 from rest_framework.test import APITestCase
-
 from materials.models import Course, Lesson, Subscription
 from users.models import User
 from rest_framework import status
