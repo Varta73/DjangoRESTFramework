@@ -71,15 +71,14 @@ jobs:
       - name: Log in to Docker Hub
         run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
-#      - name: Build Docker image
-#        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/materials:${{ github.sha }} .
-
       - name: Push Docker image to Docker Hub
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/materials:${{ github.sha }}
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
     steps:
       - name: Set up SSH
