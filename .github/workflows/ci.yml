@@ -89,7 +89,6 @@ jobs:
       STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
       DEPLOY_DIR: ${{ secrets.DEPLOY_DIR }}
 
-
     steps:
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.9.0
