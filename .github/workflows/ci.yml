@@ -86,6 +86,8 @@ jobs:
       CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
       CELERY_RESULT_BACKEND: ${{ secrets.CELERY_RESULT_BACKEND }}
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
+      DEPLOY_DIR: ${{ secrets.DEPLOY_DIR }}
 
     steps:
       - name: Set up SSH
