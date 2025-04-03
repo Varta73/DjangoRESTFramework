@@ -78,7 +78,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     env:
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      SSH_KEY: ${{ secrets.SSH_KEY }}
 
     steps:
       - name: Set up SSH
