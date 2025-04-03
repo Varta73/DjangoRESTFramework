@@ -26,6 +26,8 @@ jobs:
   test:
     needs: lint
     runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
     steps:
     - name: Check out code
@@ -49,15 +51,15 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-#    - name: Run migrations
-#      run: python manage.py migrate
-#
-#    - name: Run tests
-#      run: python manage.py test
+    - name: Run tests
+      run: python manage.py test
 
   build:
     needs: test
     runs-on: ubuntu-latest
+    env:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
     steps:
       - name: Check out code
