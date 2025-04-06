@@ -102,5 +102,5 @@ jobs:
           docker pull varta73/materials:52cd12ec6ec953e8df4c93b063cabdc64a0f19b7
           docker stop materials || true
           docker rm materials || true
-          docker run -d --name materials -p 80:8000 varta73/materials:52cd12ec6ec953e8df4c93b063cabdc64a0f19b7 
+          docker run -d --name materials -p 81:8000 varta73/materials:52cd12ec6ec953e8df4c93b063cabdc64a0f19b7 
           EOF
