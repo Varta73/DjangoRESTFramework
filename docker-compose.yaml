@@ -29,13 +29,16 @@ services:
     image: postgres:17-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+    expose:
+      - "5432"
     env_file:
-      - .env
+      - ./.env
+
 
   redis:
     image: redis:7
     volumes:
-      - redis_volume:/data env_file
+      - redis_volume:/data
     env_file:
       - ./.env
 
@@ -50,7 +53,7 @@ services:
       - redis
       - db
     env_file:
-      - .env
+      - ./.env
 
   celery-beat:
     build: .
@@ -63,7 +66,11 @@ services:
       - redis
       - db
     env_file:
-      - .env
+      - ./.env
+
+networks:
+  default:
+
 volumes:
   postgres_data:
   static_volume:

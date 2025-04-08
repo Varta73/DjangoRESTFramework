@@ -60,6 +60,10 @@ jobs:
     env:
       DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
       DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+      DATABASE_USER: ${{ secrets.DATABASE_USER }}
+      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+
 
     steps:
       - name: Check out code
@@ -88,6 +92,9 @@ jobs:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
       DEPLOY_DIR: ${{ secrets.DEPLOY_DIR }}
+      DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+      DATABASE_USER: ${{ secrets.DATABASE_USER }}
+      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
 
 
     steps:
@@ -102,5 +109,5 @@ jobs:
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/materials:${{ github.sha }}
           docker stop materials || true
           docker rm materials || true
-          docker run -d --name materials -p 81:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/materials:${{ github.sha }} 
+          docker run -d --name materials -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/materials:${{ github.sha }} 
           EOF
