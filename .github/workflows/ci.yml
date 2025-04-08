@@ -96,7 +96,6 @@ jobs:
       DATABASE_USER: ${{ secrets.DATABASE_USER }}
       DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
 
-
     steps:
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.9.0
