@@ -1,6 +1,6 @@
 name: Django CI
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   lint:
@@ -68,6 +68,11 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+
+      - name: Create .env file
+        run: |
+          touch .env
+          echo '"${{ secrets.SECRET_KEY }}"' | sed "s/\"//g" > .env
 
       - name: Build Docker image
         run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/materials:${{ github.sha }} .
