@@ -2,7 +2,29 @@
 
 ## Описание:
 
+
 Проект содержит модели пользователя, курса и урока.
+
+## Адрес сервера с развернутым приложением:
+http://51.250.41.112:80
+
+## Для запуска проекта на сервере:
+1. Настроены параметры безопасности: используются SSH-ключи для доступа.
+2. Создайте и заполните файл .env согласно шаблону .env.example
+3. Клонируйте репозиторий:
+```
+https://github.com/Varta73/DjangoProject/tree/feature/homework_35
+```
+4. Создайте новый репозиторий на GitHub
+5. Перейдите в раздел Settings > Secrets and variables > Actions.
+6. Добавьте необходимые секреты, такие как:
+     DOCKER_HUB_USERNAME
+     DOCKER_ACCESS_TOKEN
+     SSH_KEY
+     SSH_USER
+     SERVER_IP
+     SECRET_KEY
+7. Workflow запускается при каждом push/pull request в репозиторий.
 
 ## Установка (без Docker):
 
@@ -33,6 +55,22 @@ https://github.com/Varta73/DjangoProject/tree/feature/homework_34
 2. В консоли введите команду: 
 ```
 docker-compose up -d --build
+```
+
+## Запуск проекта:
+1. Клонируйте репозиторий и перейдите в папку проекта:
+```
+git clone https://github.com/Varta73/DjangoRESTFramework
+cd DjangoRESTFramework:
+```
+2. Создайте и заполните файл .env 
+3. Запустите контейнеры: 
+```
+docker-compose up -d --build
+```
+4. Остановка контейнеров 
+```
+docker-compose down
 ```
 
 ## Проект содержит:
